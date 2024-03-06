@@ -22,8 +22,9 @@
         {
             if (EstTerminée()) return this;
 
-            var estUnSpare = TypeDernierLancer == TypeLancer.Numérique &&
-                             ValeurDernierLancer + quillesTombées == NombreQuillesParFrame;
+            var estUnSpare = TypeLancerPrécédent == TypeLancer.NiSpareNiStrike &&
+                             ValeurLancerPrécédent + quillesTombées == NombreQuillesParFrame
+                             && Représentation.Count(c => c != Strike) % 2 != 0; // TODO : Code stupide
             if (estUnSpare)
                 return new Partie(this, Spare);
 
@@ -35,7 +36,7 @@
 
         private char DernierLancer => Représentation.Last();
 
-        private int ValeurDernierLancer => int.Parse(DernierLancer.ToString());
+        private int ValeurLancerPrécédent => int.Parse(DernierLancer.ToString());
 
         private int NombreDeStrike => Représentation.Count(c => c == Strike);
 
@@ -49,7 +50,7 @@
             return Représentation.Length >= nombreLancersNécessairesPourTerminer;
         }
 
-        private TypeLancer TypeDernierLancer
+        private TypeLancer TypeLancerPrécédent
         {
             get
             {
@@ -60,7 +61,7 @@
                 {
                     Strike => TypeLancer.Strike,
                     Spare => TypeLancer.Spare,
-                    _ => TypeLancer.Numérique
+                    _ => TypeLancer.NiSpareNiStrike
                 };
             }
         }
@@ -68,7 +69,7 @@
         private enum TypeLancer
         {
             Aucun,
-            Numérique,
+            NiSpareNiStrike,
             Spare,
             Strike
         }

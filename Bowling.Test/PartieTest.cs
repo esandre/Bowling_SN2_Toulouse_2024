@@ -172,9 +172,24 @@ public class PartieTest
     [Fact]
     public void DeuxLancersPuisStrike()
     {
-        // ETANT DONNE une partie ayant effectué 18 lancers
+        // ETANT DONNE une partie ayant effectué 2 lancers
         var partie = Enumerable
             .Repeat(0, 2)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+
+        // QUAND on fait chuter 10 quilles
+        var partieAprèsStrike = partie.CompterLancer(10);
+
+        // ALORS on obtient un strike
+        Assert.Equal(partie.Représentation + 'X', partieAprèsStrike.Représentation);
+    }
+
+    [Fact]
+    public void QuatreLancersPuisStrike()
+    {
+        // ETANT DONNE une partie ayant effectué 4 lancers
+        var partie = Enumerable
+            .Repeat(0, 4)
             .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
 
         // QUAND on fait chuter 10 quilles
