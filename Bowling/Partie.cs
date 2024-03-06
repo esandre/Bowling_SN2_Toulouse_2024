@@ -22,14 +22,13 @@
         public Partie CompterLancer(int quillesTombées)
         {
             if (EstTerminée()) return this;
+
             if (quillesTombées == 10) return new Partie(this, 'X');
             return new Partie(this, quillesTombées.ToString()[0]);
         }
 
-        private bool EstTerminée()
-        {
-            if (Représentation == new string('X', 12)) return true;
-            return false;
-        }
+        private int NombreDeStrike => Représentation.Count(c => c == 'X');
+
+        private bool EstTerminée() => NombreDeStrike == 12;
     }
 }
