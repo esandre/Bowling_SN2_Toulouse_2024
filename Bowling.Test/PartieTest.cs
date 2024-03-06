@@ -60,6 +60,25 @@ public class PartieTest
         Assert.Equal($"{quillesTombéesAuPremierLancer}/", partie.Représentation);
     }
 
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(0, 1)]
+    [InlineData(0, 9)]
+    [InlineData(1, 0)]
+    [InlineData(9, 0)]
+    public void DeuxLancersNonSpare(int quillesTombéesPremierLancer, int quillesTombéesSecondLancer)
+    {
+        // ETANT DONNE une partie
+        var partie = new Partie();
+
+        // QUAND on effectue 2 lancers tombant moins de 10 quilles ensemble
+        partie = partie.CompterLancer(quillesTombéesPremierLancer);
+        partie = partie.CompterLancer(quillesTombéesSecondLancer);
+
+        // ALORS sa représentation est la concaténation des 2 chiffres
+        Assert.Equal($"{quillesTombéesPremierLancer}{quillesTombéesSecondLancer}", partie.Représentation);
+    }
+
     [Fact]
     public void FinPartieStrike()
     {

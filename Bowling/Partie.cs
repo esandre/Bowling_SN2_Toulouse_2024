@@ -22,8 +22,16 @@
         {
             if (EstTerminée()) return this;
 
-            if (TypeDernierLancer == TypeLancer.Numérique) return new Partie(this, Spare); // TODO : Code stupide
-            if (quillesTombées == NombreQuillesParFrame) return new Partie(this, Strike);
+
+            if (TypeDernierLancer == TypeLancer.Numérique)
+            {
+                var nombreQuillesDernierLancer = int.Parse(Représentation.Last().ToString());
+                if(nombreQuillesDernierLancer + quillesTombées == NombreQuillesParFrame)
+                    return new Partie(this, Spare);
+            } 
+
+            if (quillesTombées == NombreQuillesParFrame) 
+                return new Partie(this, Strike);
 
             return new Partie(this, quillesTombées.ToString()[0]);
         }
