@@ -80,6 +80,19 @@ public class PartieTest
     }
 
     [Fact]
+    public void LancerAprèsPremiereFrame()
+    {
+        // ETANT DONNE un partie ayant déjà une Frame achevée par deux Strike
+        var partie = new Partie().CompterLancer(10).CompterLancer(0).CompterLancer(10);
+
+        // QUAND on effectue un lancer
+        partie = partie.CompterLancer(1);
+
+        // ALORS sa représentation est celle de la partie avant plus le nombre de quilles tombées
+        Assert.Equal("X0/1", partie.Représentation);
+    }
+
+    [Fact]
     public void FinPartieStrike()
     {
         // ETANT DONNE une partie

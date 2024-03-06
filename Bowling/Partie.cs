@@ -22,17 +22,26 @@
         {
             if (EstTerminée()) return this;
 
-            if (TypeDernierLancer == TypeLancer.Numérique)
-            {
-                var nombreQuillesDernierLancer = int.Parse(Représentation[0].ToString());
-                if(nombreQuillesDernierLancer + quillesTombées == NombreQuillesParFrame)
-                    return new Partie(this, Spare);
-            } 
+            var estUnSpare = TypeDernierLancer == TypeLancer.Numérique &&
+                             ValeurDernierLancer + quillesTombées == NombreQuillesParFrame;
+            if (estUnSpare)
+                return new Partie(this, Spare);
 
             if (quillesTombées == NombreQuillesParFrame) 
                 return new Partie(this, Strike);
 
             return new Partie(this, quillesTombées.ToString()[0]);
+        }
+
+        private char DernierLancer => Représentation.Last();
+
+        private int ValeurDernierLancer
+        {
+            get
+            {
+                if (TypeDernierLancer != TypeLancer.Numérique) throw new NotSupportedException();
+                return int.Parse(DernierLancer.ToString());
+            }
         }
 
         private int NombreDeLancers => Représentation.Length;
@@ -46,8 +55,7 @@
                 if (string.IsNullOrEmpty(Représentation)) 
                     return TypeLancer.Aucun;
 
-                var last = Représentation.Last();
-                return last switch
+                return DernierLancer switch
                 {
                     Strike => TypeLancer.Strike,
                     Spare => TypeLancer.Spare,
