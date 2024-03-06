@@ -56,8 +56,8 @@ public class PartieTest
         partie = partie.CompterLancer(quillesTombéesAuPremierLancer);
         partie = partie.CompterLancer(10 - quillesTombéesAuPremierLancer);
 
-        // ALORS sa représentation est '/'
-        Assert.Equal("/", partie.Représentation);
+        // ALORS sa représentation est le nombre de quilles du premier lancer suivi de '/'
+        Assert.Equal($"{quillesTombéesAuPremierLancer}/", partie.Représentation);
     }
 
     [Fact]
