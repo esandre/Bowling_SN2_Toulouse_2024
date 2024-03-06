@@ -122,4 +122,19 @@ public class PartieTest
         // ALORS sa représentation est 12 fois X
         Assert.Equal(new string('X', 12), partie.Représentation);
     }
+
+    [Fact]
+    public void FinPartieNormale()
+    {
+        // ETANT DONNE une partie ayant effectué 20 lancers
+        var partieTerminée = Enumerable
+            .Repeat(0, 20)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+
+        // QUAND on effectue un lancer supplémentaire
+        var partieTestée = partieTerminée.CompterLancer(0);
+
+        // ALORS sa représentation reste la même
+        Assert.Equal(partieTerminée.Représentation, partieTestée.Représentation);
+    }
 }

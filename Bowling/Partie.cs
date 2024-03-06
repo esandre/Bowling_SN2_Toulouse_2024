@@ -35,21 +35,11 @@
 
         private char DernierLancer => Représentation.Last();
 
-        private int ValeurDernierLancer
-        {
-            get
-            {
-                if (TypeDernierLancer != TypeLancer.Numérique) throw new NotSupportedException();
-                return int.Parse(DernierLancer.ToString());
-            }
-        }
+        private int ValeurDernierLancer => int.Parse(DernierLancer.ToString());
 
         private int NombreDeStrike => Représentation.Count(c => c == Strike);
 
-        private bool EstTerminée()
-        {
-            return NombreDeStrike == NombreMaxLancersParPartieFullStrike;
-        }
+        private bool EstTerminée() => NombreDeStrike == NombreMaxLancersParPartieFullStrike;
 
         private TypeLancer TypeDernierLancer
         {
