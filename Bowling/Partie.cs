@@ -22,7 +22,7 @@
         {
             if (EstTerminée()) return this;
 
-            if (TypeDernierLancer == TypeLancer.Numérique) return new Partie(this, Spare);
+            if (TypeDernierLancer == TypeLancer.Numérique) return new Partie(this, Spare); // TODO : Code stupide
             if (quillesTombées == NombreQuillesParFrame) return new Partie(this, Strike);
 
             return new Partie(this, quillesTombées.ToString()[0]);
@@ -30,7 +30,7 @@
 
         private int NombreDeLancers => Représentation.Length;
 
-        private bool EstTerminée() => NombreDeLancers == NombreMaxLancersParPartieFullStrike;
+        private bool EstTerminée() => NombreDeLancers == NombreMaxLancersParPartieFullStrike; // TODO : Code stupide et contradictoire avec les règles
 
         private TypeLancer TypeDernierLancer
         {
