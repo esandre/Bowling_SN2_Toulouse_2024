@@ -93,6 +93,21 @@ public class PartieTest
     }
 
     [Fact]
+    public void PasFinPartieSiPasStrike()
+    {
+        // ETANT DONNE une partie de 12 lancers normaux
+        var partie12Coups = Enumerable
+            .Repeat(0, 12)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+
+        // QUAND on en effectue un treizième
+        var partie13Coups = partie12Coups.CompterLancer(0);
+
+        // ALORS la partie continue
+        Assert.Equal(partie12Coups.Représentation + '0', partie13Coups.Représentation);
+    }
+
+    [Fact]
     public void FinPartieStrike()
     {
         // ETANT DONNE une partie

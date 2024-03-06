@@ -44,9 +44,12 @@
             }
         }
 
-        private int NombreDeLancers => Représentation.Length;
+        private int NombreDeStrike => Représentation.Count(c => c == Strike);
 
-        private bool EstTerminée() => NombreDeLancers == NombreMaxLancersParPartieFullStrike; // TODO : Code stupide et contradictoire avec les règles
+        private bool EstTerminée()
+        {
+            return NombreDeStrike == NombreMaxLancersParPartieFullStrike;
+        }
 
         private TypeLancer TypeDernierLancer
         {
