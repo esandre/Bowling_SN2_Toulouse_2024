@@ -170,26 +170,31 @@ public class PartieTest
     }
 
     [Fact]
-    public void DeuxLancersPuisStrike()
+    public void FinPartie2Strike()
     {
-        // ETANT DONNE une partie ayant effectué 2 lancers
-        var partie = Enumerable
-            .Repeat(0, 2)
-            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+        // ETANT DONNE une partie ayant effectué 16 lancers et deux strike
+        var partieTerminée = Enumerable
+            .Repeat(0, 16)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées))
+            .CompterLancer(10)
+            .CompterLancer(10);
 
-        // QUAND on fait chuter 10 quilles
-        var partieAprèsStrike = partie.CompterLancer(10);
+        // QUAND on effectue un lancer supplémentaire
+        var partieTestée = partieTerminée.CompterLancer(0);
 
-        // ALORS on obtient un strike
-        Assert.Equal(partie.Représentation + 'X', partieAprèsStrike.Représentation);
+        // ALORS sa représentation reste la même
+        Assert.Equal(partieTerminée.Représentation, partieTestée.Représentation);
     }
 
-    [Fact]
-    public void QuatreLancersPuisStrike()
+    [Theory]
+    [InlineData(2)]
+    [InlineData(4)]
+    [InlineData(18)]
+    public void LancersEnNombrePairPuisStrike(int nombreDeLancers)
     {
-        // ETANT DONNE une partie ayant effectué 4 lancers
+        // ETANT DONNE une partie ayant effectué un nombre pair de lancers
         var partie = Enumerable
-            .Repeat(0, 4)
+            .Repeat(0, nombreDeLancers)
             .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
 
         // QUAND on fait chuter 10 quilles

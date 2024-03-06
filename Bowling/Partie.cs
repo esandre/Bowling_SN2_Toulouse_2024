@@ -42,11 +42,10 @@
 
         private bool EstTerminée()
         {
-            if (NombreDeStrike == NombreMaxLancersParPartieFullStrike) return true;
+            if (NombreDeStrike == NombreMaxLancersParPartieFullStrike) 
+                return true;
 
-            var nombreLancersNécessairesPourTerminer = 
-                Représentation.Any(c => c==Spare) ? 19 : 20; // TODO : calcul stupide
-
+            var nombreLancersNécessairesPourTerminer = 20 - NombreDeStrike;
             return Représentation.Length >= nombreLancersNécessairesPourTerminer;
         }
 
