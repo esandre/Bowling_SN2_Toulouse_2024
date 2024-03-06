@@ -22,10 +22,9 @@
         {
             if (EstTerminée()) return this;
 
-
             if (TypeDernierLancer == TypeLancer.Numérique)
             {
-                var nombreQuillesDernierLancer = int.Parse(Représentation.Last().ToString());
+                var nombreQuillesDernierLancer = int.Parse(Représentation[0].ToString());
                 if(nombreQuillesDernierLancer + quillesTombées == NombreQuillesParFrame)
                     return new Partie(this, Spare);
             } 
