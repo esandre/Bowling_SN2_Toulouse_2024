@@ -2,20 +2,34 @@
 {
     public class Partie
     {
-        public int Score { get; }
+        public string Représentation { get; } = string.Empty;
 
         public Partie()
         {
         }
 
-        private Partie(int score)
-        {
-            Score = score;
+        private Partie(Partie étatPrécédent, char action)
+        { 
+            var premierLancerValide = int.TryParse(étatPrécédent.Représentation, out var nombreQuillesPremierLancer);
+            nombreQuillesPremierLancer = premierLancerValide ? nombreQuillesPremierLancer : 0;
+
+            var nombreQuillesSecondLancer = action == 'X' ? 10 : int.Parse(action.ToString());
+
+            if (premierLancerValide && nombreQuillesPremierLancer + nombreQuillesSecondLancer == 10) Représentation = "/";
+            else Représentation = étatPrécédent.Représentation + action;
         }
 
         public Partie CompterLancer(int quillesTombées)
         {
-            return new Partie(quillesTombées);
+            if (EstTerminée()) return this;
+            if (quillesTombées == 10) return new Partie(this, 'X');
+            return new Partie(this, quillesTombées.ToString()[0]);
+        }
+
+        private bool EstTerminée()
+        {
+            if (Représentation == new string('X', 12)) return true;
+            return false;
         }
     }
 }
