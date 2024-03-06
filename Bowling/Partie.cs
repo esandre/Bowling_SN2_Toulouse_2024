@@ -28,9 +28,9 @@
             return new Partie(this, quillesTombées.ToString()[0]);
         }
 
-        private int NombreDeStrike => Représentation.Count(c => c == Strike);
+        private int NombreDeLancers => Représentation.Length;
 
-        private bool EstTerminée() => NombreDeStrike == NombreMaxLancersParPartieFullStrike;
+        private bool EstTerminée() => NombreDeLancers == NombreMaxLancersParPartieFullStrike;
 
         private TypeLancer TypeDernierLancer
         {
