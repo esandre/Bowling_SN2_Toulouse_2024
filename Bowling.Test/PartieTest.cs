@@ -137,4 +137,50 @@ public class PartieTest
         // ALORS sa représentation reste la même
         Assert.Equal(partieTerminée.Représentation, partieTestée.Représentation);
     }
+
+    [Fact]
+    public void PasFinPartie19Lancers()
+    {
+        // ETANT DONNE une partie ayant effectué 19 lancers
+        var partieNonTerminée = Enumerable
+            .Repeat(0, 19)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+
+        // QUAND on effectue un lancer supplémentaire
+        var partieTestée = partieNonTerminée.CompterLancer(0);
+
+        // ALORS la partie continue
+        Assert.Equal(partieNonTerminée.Représentation + '0', partieTestée.Représentation);
+    }
+
+    [Fact]
+    public void FinPartie1Strike()
+    {
+        // ETANT DONNE une partie ayant effectué 18 lancers et un strike
+        var partieTerminée = Enumerable
+            .Repeat(0, 18)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées))
+            .CompterLancer(10);
+
+        // QUAND on effectue un lancer supplémentaire
+        var partieTestée = partieTerminée.CompterLancer(0);
+
+        // ALORS sa représentation reste la même
+        Assert.Equal(partieTerminée.Représentation, partieTestée.Représentation);
+    }
+
+    [Fact]
+    public void DeuxLancersPuisStrike()
+    {
+        // ETANT DONNE une partie ayant effectué 18 lancers
+        var partie = Enumerable
+            .Repeat(0, 2)
+            .Aggregate(new Partie(), (partie, quillesTombées) => partie.CompterLancer(quillesTombées));
+
+        // QUAND on fait chuter 10 quilles
+        var partieAprèsStrike = partie.CompterLancer(10);
+
+        // ALORS on obtient un strike
+        Assert.Equal(partie.Représentation + 'X', partieAprèsStrike.Représentation);
+    }
 }

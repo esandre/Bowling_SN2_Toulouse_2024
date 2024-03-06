@@ -39,7 +39,15 @@
 
         private int NombreDeStrike => Représentation.Count(c => c == Strike);
 
-        private bool EstTerminée() => NombreDeStrike == NombreMaxLancersParPartieFullStrike;
+        private bool EstTerminée()
+        {
+            if (NombreDeStrike == NombreMaxLancersParPartieFullStrike) return true;
+
+            var nombreLancersNécessairesPourTerminer = 
+                Représentation.Any(c => c==Spare) ? 19 : 20; // TODO : calcul stupide
+
+            return Représentation.Length >= nombreLancersNécessairesPourTerminer;
+        }
 
         private TypeLancer TypeDernierLancer
         {
